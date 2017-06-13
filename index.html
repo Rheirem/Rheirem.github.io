@@ -1,0 +1,71 @@
+<!--
+This is the first actual 'working' game that I've made.
+I hope you cherish your quality time spent with it!
+<Seal type="Sean Livingston's">Approval</Seal>
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ball</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      canvas {
+        border: 3px solid grey;
+        background-color: black;
+      }
+      h3 {
+        color: orange;
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+  <body style="background-color:rgb(16, 91, 79)">
+
+    <center><canvas id="canvas" width="1000" height="600"></canvas></center>
+    <center><h3 id="score">Score: 0</h3></center>
+
+  <script src="ball.js"></script>
+  <script type="text/javascript">
+
+  var c, ctx, mousePos, speedUpFlag, gameOverTimer, startChecker, waitToStart = 0;
+
+  $(function(){
+    c = document.getElementById('canvas');
+    ctx = c.getContext("2d");
+    callUponTheMasterOfTheUniverse();
+  });
+
+  $('#canvas').click(function() {
+    startCheckerTrue()
+    if (gameOverTimer >= 1.5) {restart()};
+  });
+
+    setInterval(function() { //Changes ball direction and speed
+      moveBall()
+    }, moveBallTimeout);
+
+    setInterval(function() { //Redraws and moves ball according to speed
+      //console.log(mousePos.x + ', ' + mousePos.y)
+      drawBall();
+      bounceBall();
+      speedUpGame();
+      initZombieSpacePirates();
+      updateScore();
+      //console.log(randomNum(-3, 6));
+    }, 1000/60);
+
+    setInterval(function() { //starts to speeds up game after 10 seconds after game starts
+      if (startChecker) {speedUpFlag = true};
+    }, waitToStart);
+
+    setInterval(function() { //Count how long the cursor was outside the circle
+      gameOverAdder();
+    }, 1000 / 8)
+
+  </script>
+  <script src="mousePos.js"></script>
+  </body>
+</html>
